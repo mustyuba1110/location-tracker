@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link href="./bootstrap-5.2.1-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+  <script src="./bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="./direction.js" type="text/javascript"></script><!---Map Direction JavaScript file-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./scrollbar.css" type="text/css"> <!---Scrollbar CSS Style file-->
+  <meta charset="utf-8">
+  <meta meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Integrated Tracker</title>
+  <link rel="stylesheet" href="keyboard.css"><!---CSS Style file for the entire page-->
+  <script src="./mapjs.js"></script><!---Map Initiation and Location JavaScript file-->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+    defer></script><!---Google map api CDN-->
+</head>
+
+<body onload="initialize();"><!--- the code: <body onload="initialize();"> initialize the map with onload event [initialize() is the function responsible for initializing the map] -->
+  <div class="containers"><!----Container of all containers of the map-->
+    <div class="row"> <!---row of the map containers [contains all map rows]----->
+      <div class="col-md-12"><!---columns of the entire map containers--->
+        <div class="container W"><!--Nested Container of the map rows and columns-->
+          <div class="row"><!--First and Top row of the map top columns(SCI-MAP-TRACKER and SEARCH INFO)-->
+            <div class="col-md-9 hdm"><!--SCI-MAP-TRACKER Column-->
+              <img id="icon" src="./726892854earth-spinning-rotating-animation-14.gif"><!--spinning-rotating-animation image of the map--->
+              <h3>SCI-MAP-TRACKER</h3>
+            </div>
+            <div class="col-md-3 hdi"><!--SEARCH INFO Column-->
+              <h3>SEARCH INFO</h3>
+            </div>
+          </div>
+          <div class="row"><!--MAP INFO ROW-->
+            <div class="col-md-9 MW mws" id="body"><!---MAP BODY Column (Where the map display)-->
+            </div>
+            <div class="col-md-3 IW iws"><!--MAP LOCATION/ADDRESS INFO PANEL Column-->
+              <div class="panel panel-default"><!--info panel-->
+                <div class="panel-body" id="information"><!--The information box (Where the info display)-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row"><!--MAP TYPE ROW-->
+            <div class="col-md-12 sep btn-group btn-group-sm" role="group" aria-label="Basic example"><!--MAP TYPE COLUMN-->
+              <button type="button" class="btn btn-secondary az" onclick="mSatellite();">SATELLITE</button>
+              <button type="button" class="btn btn-secondary az" onclick="mHybrid();">HYBRID</button>
+              <button type="button" class="btn btn-secondary az" onclick="mTerrain();">TERRAIN</button>
+              <button type="button" class="btn btn-secondary az" onclick="mRoadMap();">ROADMAP</button>
+            </div>
+          </div>
+          <div class="row"><!--Map Tools row (Contains buttons,Combo Boxes.TextBoxes and CheckBoxes used to navigate the map)-->
+            <div class="col-md-12 sep btn-group btn-group-sm" role="group" aria-label="Basic example"><!--Column that contains Contains buttons,Combo Boxes.TextBoxes and CheckBoxes used to navigate the map-->
+              <select class="form-select form-select-sm" id="TravelMode" onchange="calcRoute();"><!--TravelMode-->
+                <option>DRIVING</option>
+                <option>BICYCLING</option>
+                <option>TRANSIT</option>
+                <option>WALKING</option>
+              </select>
+              <select class="form-select form-select-sm" id="TransitMode" onchange="calcRoute();"><!--TransitMode-->
+                <option>BUS</option>
+                <option>RAIL</option>
+                <option>SUBWAY</option>
+                <option>TRAIN</option>
+                <option>TRAM</option>
+              </select>
+              <select class="form-select form-select-sm" id="FELE" onchange="calcRoute();"><!--OPTIONS-->
+                <option>FEWER TRANSFERS</option>
+                <option>LESS WALKING</option>
+              </select>
+              <select class="form-select form-select-sm" id="OP" onchange="calcRoute();"><!--OPTION-->
+                <option>Bestguess</option>
+                <option>Pessimistic</option>
+                <option>Optimistic</option>
+              </select>
+              <div class="form-group">
+                <div class="form-check">
+                  <label class="form-check-label">Provide Route Alternative</label><span> </span><input id="opt1"
+                    type="checkbox" style="padding: auto;">
+                  <label class="form-check-label">Avoid Ferries</label><span> </span><input id="opt2" type="checkbox"
+                    style="padding: auto;">
+                  <label class="form-check-label">Avoid Highways</label><span> </span><input id="opt3" type="checkbox"
+                    style="padding: auto;">
+                  <label class="form-check-label">Avoid Tolls</label><span> </span><input id="opt4" type="checkbox"
+                    style="padding: auto;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row"><!--PAGE TAB-->
+            <div class="col-md-12 CW"><!--COLUMN FOR THE TAB-->
+              <nav><!--TAB NAVIGATION-->
+                <div class="nav nav-tabs" id="nav-tab" role="tablist"><!--TAB LIST CONTAINER-->
+                  <!--TAB LIST-->
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">LOCATION</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                    type="button" role="tab" aria-controls="nav-profile" aria-selected="false">DIRECTION</button>
+             
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent"><!--TAB CONTENT CONTAINER-->
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--FIRST TAB PANEL CONTAINER-->
+                  <form name="location">
+                    <div class="form-group col-md-12"><input type="text" id="input" name="linput" class="form-control"
+                        placeholder="Enter a location" required="required"><select class="form-control" name="type"
+                        id="combo">
+                        <option selected>Select location data type</option>
+                        <option>IP ADDRESS</option>
+                        <option>PHYSICAL LOCATION</option>
+                      </select><button type="button" class="form-control btn btn-primary" id="trb"
+                        onclick="codeAddress();">Track</button>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" unchecked
+                          onchange="fMyLocation();">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Find My location</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--SECOND TAB PANEL CONTAINER-->
+                  <form>
+                    <div class="form-group col-md-12"><input type="text" id="input2" name="input" class="form-control"
+                        placeholder="Enter a location A" required="required"><input type="text" id="input3" name="input"
+                        class="form-control" placeholder="Enter a location B" required="required"><select
+                        class="form-control" id="combo2">
+                        <option>Select location data type</option>
+                        <option>IP ADDRESS</option>
+                        <option>PHYSICAL LOCATION</option>
+                      </select><button type="button" class="form-control btn btn-primary" onclick="calcRoute();"
+                        id="trb">Track</button>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked2"
+                          name="flexSwitchCheckChecked2" unchecked onchange="Dirme();">
+                        <label class="form-check-label" for="flexSwitchCheckChecked2">Direction from My location</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

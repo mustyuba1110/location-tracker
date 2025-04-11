@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+   <head>
+    <link href="./bootstrap-5.2.1-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+     <script src="./bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+     <script src="./direction.js" type="text/javascript"></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1"/>
+      <title>Integrated Tracker</title>
+  <style>
+    .col-sm-12{
+
+width: 100%;
+height: 70%;
+
+
+}
+#infowind{
+  width:100%;
+  font-size: small;
+  color: blue;
+  text-decoration: underline grey;
+}
+.az:hover{
+  background-color: rgb(223, 26, 223);
+}
+.az{
+  font-size: x-small;
+  text-align: center;
+  padding: 0;
+  background-color: hsla(182, 79%, 64%, 0.74);
+  margin: auto;
+}
+
+#combo{
+    float: right;
+}
+#input,#combo{
+  width: 30%;
+  display: inline;
+  margin: 12px;
+}
+#trb{
+    float: right;
+  width: 30%;
+  display: inline;
+  margin: 12px;
+}
+#input3{
+    float: right;
+}
+#input2,#input3, #combo2{
+  width: 30%;
+  display: inline;
+  margin: 12px;
+}
+.form-check-label{
+  color: bisque;
+  
+}
+.CW{
+  padding: 7px;
+  height: 210px;
+  width: 100%;
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px;
+  background: rgb(19,0,36);
+background: linear-gradient(90deg, rgba(19,0,36,0.700717787114846) 24%, rgba(121,108,9,0.5522584033613445) 45%, rgba(0,255,16,1) 81%);
+  box-shadow: -3px -3px 7px groove #ffffff73,
+               2px 2px 5px groove rgba(94,104,121,0.288);
+ 
+}
+.form-switch{
+  float:left ;
+  display: inline;
+  
+}
+.sep{
+  width: 100%;
+  padding: 7px;
+  height: 30px;
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 5%, rgba(9,121,46,0.8519782913165266) 45%, rgba(0,212,255,1) 100%);
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px / 30px;
+ 
+  box-shadow: -3px -3px 7px inset #ffffff73,
+               2px 2px 5px inset rgba(94,104,121,0.288);
+}
+
+body{
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 5%, rgba(9,121,46,0.8519782913165266) 45%, rgba(0,212,255,1) 100%);
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.nav-link{
+  width: 50%;
+}
+.MW{
+ 
+  padding:0;
+  height: 264px;
+
+ width: 100%;
+ position: sticky;
+ border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px;
+  
+  box-shadow: -3px -3px 7px groove #ffffff73,
+               2px 2px 5px groove rgba(94,104,121,0.288);
+  
+
+}
+.iws{
+ 
+ overflow-y: scroll;
+  padding: 0;
+  height: 180px;
+  position: static;
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 5%, rgba(9,121,46,0.8519782913165266) 45%, rgba(0,212,255,1) 100%);
+border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px;
+  
+  box-shadow: -3px -3px 7px groove #ffffff73,
+               2px 2px 5px groove rgba(94,104,121,0.288);
+  
+}
+.container{
+  
+  height:100% ;
+width: 100%;
+}
+
+
+/*beginning of scrollbar*/
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 2px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: darkcyan; 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
+/*end of scrollbar*/
+
+  </style>
+     
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly" defer ></script>
+  
+     <script>
+     
+       function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var mapOptions = {
+      zoom: 8,
+      center: latlng,
+      mapTypeId: maptype,
+      disableDefaultUI: true,
+      streetViewControl: true,
+     
+      
+      zoomControl: true
+    }
+    
+    map = new google.maps.Map(document.getElementById('body'), mapOptions);
+  }
+      
+   
+      
+ 
+
+  var maptype;
+  var geocoder;
+  var map;
+  function mSatellite(){
+    map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+  }
+  function mTerrain(){
+    map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+  }
+  function mHybrid(){
+    map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+  }
+  function mRoadMap(){
+    map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+  }
+ 
+  var address
+  function codeAddress() {
+    var e = document.getElementById("combo").value;
+    if(e == "IP ADDRESS"){
+      var requestOptions = {
+  method: 'GET',
+};
+var ltlng;
+
+var countrynames,countrynamespt,countrynamesru,countrynamescn,countrynameses,countrynamesfr,countrynamesjp, countrynamesde,countrynamesar,countryname,cityname,continent,continames,countrycapital,currency,iplat,iplng,statename,mobilecode,countryol,continentol,iso_code;
+address = document.getElementById('input').value;
+
+fetch("https://api.geoapify.com/v1/ipinfo?ip="+address.toString()+"&apiKey=2aaa6125d80a4f738d79ea1c89518469", requestOptions)
+  .then(response => response.json())
+  .then(result =>{ 
+    ltlng = result.city["name"],
+    countrynamesar = result.country.names["fa"],
+    countrynamesde = result.country.names["de"],
+    countrynameses = result.country.names["es"],
+    countrynamesfr = result.country.names["fr"],
+    countrynamesjp = result.country.names["ja"],
+    countrynamespt = result.country.names["pt-BR"],
+    countrynamesru = result.country.names["ru"],
+    countrynamescn = result.country.names["zh-CN"],
+    countryname = result.country["name"],
+  continent = result.continent["name"],
+  countrycapital = result.country["capital"],
+  currency = result.country["currency"],
+  iso_code = result.country["iso_code"],
+
+mobilecode = result.country.phone_code,
+iplat = result.location["latitude"],
+iplng = result.location["longitude"],
+statename = result.state["name"]
+console.log(ltlng)
+console.log(countryname)
+console.log(iso_code)
+
+console.log(currency)
+console.log(continent)
+console.log(countrycapital)
+console.log(mobilecode)
+console.log(statename)
+console.log(iplat)
+console.log(iplng)
+var atype =  "<label>Input Type : <b>"+e+"</b></label>" ;
+       var countrynamel ="<label>Country : "+ countryname+"</b></label>";
+       var citynamel = "<label>City : <b>"+ltlng+"</b></label>";
+       var continentl = "<label>Continent : <b>"+ continent + "</b></label>";
+       var countrycapitalL ="<label>Capital : <b>"+countrycapital+"</b></label>";
+       var currencyl = "<label>Currency : <b>"+currency+"</b></label>";
+       var iso_codel ="<label>Country ISO Code : "+ iso_code+"</b></label>";
+   var countrynamessde = "<label>Country Name in Deutch : "+ countrynamesde+"</b></label>";
+   var countrynamesses = "<label>Country Names in Spanish : "+ countrynameses+"</b></label>";
+   var countrynamessfa = "<label>Country Names in Arabic : "+ countrynamesar+"</b></label>";
+   var countrynamessfr = "<label>Country Names in French : "+ countrynamesfr+"</b></label>";
+   var countrynamessja = "<label>Country Names in Japanese : "+ countrynamesjp+"</b></label>";
+   var countrynamesspt = "<label>Country Names in Portuguese (Brazil) : "+ countrynamespt+"</b></label>";
+   var countrynamessru = "<label>Country Names in Russian : "+ countrynamesru+"</b></label>";
+   var countrynamesscn = "<label>Country Names in Chinese : "+ countrynamescn+"</b></label>";
+   var countrynames = "<label>Country Names : "+ countrynames+"</b></label>";
+       var ipLt ="<label>IP Latitude : "+ iplat+"</b></label>";
+       var ipln = "<label>IP Longitude : "+ iplng+"</b></label>";
+       var statel = "<label>STATE : "+ statename+"</b></label>";
+       var mcode ="<label>Mobile Code : "+ mobilecode+"</b></label>";
+       var line_break = "<br/>";
+        
+       var infoWind = "<h1 id='infowind' style = 'position:fixed; text-align:center;'> LOCATION INFORMATION OF " + address + "</h1>" +  line_break+line_break+atype + line_break +continentl+line_break+ countrynamel +line_break+countrynamessde+line_break+countrynamesses+line_break+countrynamessfa+line_break+countrynamessfr+line_break+countrynamessja+line_break+countrynamesspt+line_break+countrynamessru+ line_break +countrynamesscn+line_break+ citynamel +line_break+ statel + line_break +countrycapitalL+ line_break+currencyl+line_break + iso_codel+ line_break + ipLt+ line_break +ipln+ line_break +mcode;
+       document.getElementById('information').innerHTML = infoWind;
+       function initMap() {
+ const myLatLng = new google.maps.LatLng(iplat, iplng);
+ alert(myLatLng)
+  map = new google.maps.Map(document.getElementById("body"), {
+    zoom: 7,
+    center: myLatLng,
+    streetViewControl: true,
+    disableDefaultUI: true
+  });
+ 
+ 
+  new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: "Hello World!",
+  });
+}
+
+initMap();
+      }
+  ).catch(error=>console.log('error',error));
+  
+
+      
+   
+       
+ 
+
+
+
+  
+
+  
+}else if(e == "PHYSICAL LOCATION"){
+      
+      var requestOptions = {
+  method: 'GET',
+};
+address = document.getElementById('input').value;
+
+ 
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        var line_break = "<br/>";
+        var formated_Address = "<label>Location Address : "+ results[0].formatted_address;
+        var atype =  "<label>Input Type : <b>"+e+"</b></label>" ;
+        var infoWind = "<h1 id='infowind'> LOCATION INFORMATION OF " + address + "</h1>" + line_break + atype + line_break + formated_Address;
+       document.getElementById("information").innerHTML = infoWind;
+        map.setCenter(results[0].geometry.location);
+        
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+            
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ',error);
+      }
+    });
+    }else{
+      alert("Please Select your input type")
+    }
+    }
+  
+    ///LOCATION FINDER END
+
+    function fMyLocation(){
+      
+     
+      
+     function LocMe(mLatLng){
+       
+      
+    
+    var latlng = new google.maps.LatLng(mLatLng.coords.latitude, mLatLng.coords.longitude);
+    var mapOptions = {
+      zoom: 17,
+      center: latlng,
+      mapTypeId: maptype,
+      disableDefaultUI: true,
+      streetViewControl: true
+    }
+    
+    map = new google.maps.Map(document.getElementById('body'), mapOptions);
+    var marker = new google.maps.Marker({
+            map: map,
+            position: latlng
+            
+        });
+  }
+
+
+ 
+   
+       if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(LocMe);
+        
+       } else {
+         x.innerHTML = "Geolocation is not supported by this browser.";
+       }
+     
+    }
+   
+   
+
+
+
+
+     </script>
+        
+        </head>
+   <body onload="initialize();">
+   
+      <div class="containers">
+        
+         <div class="row">
+            <div class="col-sm-12">
+                <div class="container W">
+                
+                    <div class="row">
+                        
+                        <div class="col-sm-12 MW mws" id="body">
+                          
+                        </div>
+                        
+                      
+                        
+                    </div>
+                    <div class="row">
+                      
+                        <div class="col-sm-12 IW iws">
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-body" id="information">
+                               
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-sm-12 sep btn-group btn-group-lg" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-secondary az"  onclick="mSatellite();">SATELLITE</button>
+                      <button type="button" class="btn btn-secondary az"  onclick="mHybrid();">HYBRID</button>
+                      <button type="button" class="btn btn-secondary az" onclick="mTerrain();">TERRAIN</button>
+                      <button type="button" class="btn btn-secondary az" onclick="mRoadMap();">ROADMAP</button>
+                      
+                     
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 sep btn-group btn-group-lg" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-secondary az"  onclick="mSatellite();">SATELLITE</button>
+                      <button type="button" class="btn btn-secondary az"  onclick="mHybrid();">HYBRID</button>
+                      <button type="button" class="btn btn-secondary az" onclick="mTerrain();">TERRAIN</button>
+                      <button type="button" class="btn btn-secondary az" onclick="mRoadMap();">ROADMAP</button>
+                      
+                     
+                    </div>
+                  </div>
+                    <div class="row">
+                        <div class="col-sm-12 CW">
+                          <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">LOCATION</button>
+                              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">DIRECTION</button>
+                         
+                            </div>
+                          </nav>
+                          <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><form name="location"><div class="form-group col-sm-12"><input type="text" id="input" name="linput" class="form-control" placeholder="Enter a location" required="required"><select class="form-control" name="type" id="combo"><option selected>INPUT TYPE</option><option>IP ADDRESS</option><option>PHYSICAL LOCATION</option></select><button type="button" class="form-control btn btn-primary" id="trb" onclick="codeAddress();">Track</button><div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" unchecked onchange="fMyLocation();">
+                              <label class="form-check-label" for="flexSwitchCheckChecked">Find My location</label>
+                            </div></div> </form></div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><form>
+                              <div class="form-group col-sm-12"><input type="text" id="input2" name="input" class="form-control" placeholder="Enter location A" required="required"><input type="text" id="input3" name="input" class="form-control" placeholder="Enter location B" required="required"><br/><select class="form-control" id="combo2"><option>INPUT TYPE</option><option>IP ADDRESS</option><option>PHYSICAL LOCATION</option></select><button type="button"  class="form-control btn btn-primary" onclick="calcRoute();" id="trb">Track</button>
+                                <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked2" unchecked onchange="Dirme();">
+                              <label class="form-check-label" for="flexSwitchCheckChecked2">Direction from My location</label>
+                            </div></div></form></div>
+                           
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+         </div>
+            </div>
+            
+   </body>
+</html>

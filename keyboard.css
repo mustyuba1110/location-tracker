@@ -1,0 +1,202 @@
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+/*To remove terms of use and google logo (Not recommended for Commercial product)**/
+.col-md-12{
+
+width: 90%;
+height: 80%;
+
+
+}
+.form-select-sm{
+  width: 10%;
+  
+}
+#infowind{
+  width:100%;
+  font-size: small;
+  color: blue;
+  text-decoration: underline grey;
+}
+.az:hover{
+  background-color: rgb(223, 26, 223);
+}
+.az{
+  font-size: x-small;
+  text-align: center;
+  padding: 0;
+  background-color: hsla(182, 79%, 64%, 0.74);
+  margin: auto;
+}
+.azy{
+  
+  text-align: center;
+  padding: 0;
+  background-color: hsla(182, 79%, 64%, 0.74);
+  margin: auto;
+}
+#trb{
+  width:10% ;
+  display: inline;
+  margin: 12px;
+}
+
+#input,#combo{
+  width: 30%;
+  display: inline;
+  margin: 12px;
+}
+#trb{
+  width: 8%;
+  display: inline;
+  margin: 12px;
+}
+#input2,#input3, #combo2{
+  width: 17%;
+  display: inline;
+  margin: 12px;
+}
+.form-check-label{
+  color: bisque;
+  
+}
+.CW{
+  padding: 7px;
+  height: 115px;
+  width: 100%;
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px;
+  
+  box-shadow: -3px -3px 7px groove #ffffff73,
+               2px 2px 5px groove rgba(94,104,121,0.288);
+ 
+}
+.form-switch{
+  float:right ;
+  display: inline;
+  padding: 2%;
+  margin: 12px;
+}
+.sep{
+  width: 100%;
+  padding: 7px;
+  height: 45px;
+  
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px / 30px;
+ 
+  box-shadow: -3px -3px 7px inset #ffffff73,
+               2px 2px 5px inset rgba(94,104,121,0.288);
+}
+#icon{
+  height: 40px;
+ position: fixed;
+ width: 45px;
+float: left;
+left: 15%;
+padding-right: 5px;
+margin:-17px;
+}
+
+.hdm{
+ 
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 40px;
+  letter-spacing: -3px;
+  word-spacing: -0.4px;
+  color: #18DB70;
+  font-weight: 400;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  text-align: center;
+
+  padding: 30px;
+  height: 30px;
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px / 30px;
+
+  box-shadow: -3px -3px 7px inset #ffffff73,
+               2px 2px 5px inset rgba(94,104,121,0.288);
+}
+.hdi{
+
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 40px;
+  letter-spacing: -3px;
+  word-spacing: -0.4px;
+  color: #18DB70;
+  font-weight: 400;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 30px;
+  height: 30px;
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px;
+
+  box-shadow: -3px -3px 7px inset #ffffff73,
+               2px 2px 5px inset rgba(94,104,121,0.288);
+}
+.MW{
+ 
+  padding: 7px;
+  height: 460px;
+  border: 1px solid rgb(219, 97, 219);
+  border-radius: 10px / 30px;
+ 
+  box-shadow: -3px -3px 7px inset #ffffff73,
+               2px 2px 5px inset rgba(94,104,121,0.288);
+  
+
+}
+.iws{
+  overflow: scroll;
+  border: 1px solid white;
+  padding: 7px;
+  height: 460px;
+  border-radius: 10px;
+background-color: #F1e5e5;
+  box-shadow: -3px -3px 7px inset #ffffff73,
+               2px 2px 5px inset rgba(94,104,121,0.288);
+  
+}
+
+.container{
+  
+  height:780px ;
+width: 1300px;
+}
+
+.container{
+  min-width: 750px;
+  max-width: 1600px;
+  padding: 25px;
+  border-radius: 10px;
+ 
+  box-shadow: -3px -3px 7px hsla(182, 79%, 64%, 0.74),
+               2px 2px 5px rgba(94,104,121,0.288);
+  /* background: #131419; */
+  /* box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+              -3px -3px 7px rgba(255,255,255,0.05); */
+
+}
+body{
+  size: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url("./cool-background.png");
+   flex-direction: column;
+}

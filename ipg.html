@@ -1,0 +1,16 @@
+<html><head>
+</head>
+
+
+<script>
+ var requestOptions = {
+  method: 'GET',
+};
+
+fetch("https://api.geoapify.com/v1/ipinfo?ip=197.210.85.98&apiKey=2aaa6125d80a4f738d79ea1c89518469", requestOptions)
+  .then(response => response.json())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+  
+</script>
+    </head><body></body></html>

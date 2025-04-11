@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Integrated Tracker</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <!-- Custom Sci-Fi Style -->
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+      color: #00ffcc;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .sci-panel, .card {
+      background-color: rgba(0, 255, 204, 0.05);
+      border: 1px solid #00ffcc;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #00ffcc33;
+    }
+    .btn-sci {
+      background-color: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 0 10px #00ffcc88;
+    }
+    .btn-sci:hover {
+      background-color: #00ccb3;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+    #body {
+      border: 2px solid #00ffcc;
+      box-shadow: 0 0 20px #00ffcc33;
+    }
+  </style>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+  <script src="./mapjs.js"></script>
+  <script src="./direction.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly" defer></script>
+  <script>
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          let lat = position.coords.latitude;
+          let lng = position.coords.longitude;
+          document.getElementById("latInput").value = lat;
+          document.getElementById("lngInput").value = lng;
+          gotoManualLocation();
+        }, function (error) {
+          alert("Location access denied or unavailable.");
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function gotoManualLocation() {
+      let lat = parseFloat(document.getElementById("latInput").value);
+      let lng = parseFloat(document.getElementById("lngInput").value);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        let location = new google.maps.LatLng(lat, lng);
+        map.setCenter(location);
+        new google.maps.Marker({ position: location, map: map });
+      } else {
+        alert("Invalid coordinates.");
+      }
+    }
+
+    function createGPSRequestLink() {
+      const baseUrl = "https://yourhost.com/location_request.html";
+      document.getElementById("gpsLinkDisplay").value = baseUrl;
+    }
+  </script>
+</head>
+
+<body onload="initialize();">
+  <div class="container-fluid p-3">
+    <div class="row mb-3">
+      <div class="col-md-9">
+        <h3><img src="./726892854earth-spinning-rotating-animation-14.gif" width="40"> <span style="color:#00ffcc">SCI-MAP-TRACKER</span></h3>
+      </div>
+      <div class="col-md-3 text-end">
+        <h3><span style="color:#00ffcc">SEARCH INFO</span></h3>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-9">
+        <div id="body" style="height: 500px;"></div>
+      </div>
+      <div class="col-md-3">
+        <div class="card sci-panel">
+          <div class="card-body" id="information">Location Info Panel</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12 btn-group">
+        <button class="btn btn-sci" onclick="mSatellite();">SATELLITE</button>
+        <button class="btn btn-sci" onclick="mHybrid();">HYBRID</button>
+        <button class="btn btn-sci" onclick="mTerrain();">TERRAIN</button>
+        <button class="btn btn-sci" onclick="mRoadMap();">ROADMAP</button>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <button class="btn btn-sci mb-2" onclick="getUserLocation()">Use My Real-Time Location</button>
+        <input id="latInput" class="form-control mb-2" placeholder="Paste Latitude">
+        <input id="lngInput" class="form-control mb-2" placeholder="Paste Longitude">
+        <button class="btn btn-sci" onclick="gotoManualLocation()">Go to Location</button>
+      </div>
+
+      <div class="col-md-6">
+        <button class="btn btn-sci mb-2" onclick="createGPSRequestLink()">Generate Link to Collect GPS</button>
+        <input id="gpsLinkDisplay" class="form-control" readonly>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
